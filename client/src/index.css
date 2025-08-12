@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;700&display=swap");
+@import "tailwindcss";
+
+* {
+  font-family: "Inter", sans-serif;
+}
+
+h1,
+h2,
+h3,
+.username {
+  font-family: "Poppins", sans-serif;
+}
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@utility no-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
