@@ -3,11 +3,12 @@ import { dummyStoriesData } from "../assets/assets";
 import { Plus } from "lucide-react";
 import moment from "moment";
 import StoryModal from "./StoryModal";
-type Story = typeof dummyStoriesData;
+import StoryViewer from "./StoryViewer";
+export type Story = typeof dummyStoriesData[number];
 const StoriesBar = () => {
-  const [stories, setStories] = useState<Story>([]);
+  const [stories, setStories] = useState<Story[]>([]);
   const [showModal, setShowModal] = useState(false);
-  const [viewStory, setViewStory] = useState(null);
+  const [viewStory, setViewStory] = useState<Story | null>(null);
   const fetchStories = async () => {
     setStories(dummyStoriesData);
   };
@@ -34,6 +35,7 @@ const StoriesBar = () => {
         {/* Story cards */}
         {stories.map((story, index) => (
           <div
+            onClick={() => setViewStory(story)}
             key={index}
             className={`relative rounded-lg shadow min-w-30 max-w-30 max-h-40 cursor-pointer hover:shadow-lg transition-all duration-200 bg-gradient-to-b from-indigo-500 to-purple-600 hover:from-indigo-700 hover:to-purple-800 active:scale-95`}
           >
@@ -70,6 +72,10 @@ const StoriesBar = () => {
       {/* Add story modal */}
       {showModal && (
         <StoryModal setShowModal={setShowModal} fetchStories={fetchStories} />
+      )}
+      {/* View story modal */}
+      {viewStory && (
+        <StoryViewer viewStory={viewStory} setViewStory={setViewStory} />
       )}
     </div>
   );
