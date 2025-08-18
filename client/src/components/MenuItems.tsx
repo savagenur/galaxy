@@ -12,7 +12,7 @@ const MenuItems = ({ setSidebarOpen }: MenuItemsProps) => {
         <NavLink
           key={to}
           to={to}
-          end={true}
+          // end={to==="/"}
           onClick={() => setSidebarOpen(false)}
           className={({ isActive }) =>
             `px-3.5 py-2 flex items-center gap-3 rounded-xl ${
