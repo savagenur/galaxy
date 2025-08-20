@@ -6,6 +6,7 @@ import UserProfileInfo from "./UserProfileInfo";
 import PostCard from "../components/PostCard";
 import moment from "moment";
 import { ShieldQuestionMarkIcon } from "lucide-react";
+import ProfileModal from "../components/ProfileModal";
 
 const Profile = () => {
   const { profileId } = useParams();
@@ -109,7 +110,7 @@ const Profile = () => {
         </div>
       </div>
       {/* Edit profile modal */}
-      {showEdit && <p>show profile edit</p>}
+      {showEdit && <ProfileModal setShowEdit={setShowEdit} />}
     </div>
   ) : (
     <Loading />
