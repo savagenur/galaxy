@@ -5,7 +5,7 @@ import connectDB from "./configs/db.js";
 import { functions, inngest } from "./inngest/index.js";
 import { serve } from "inngest/express";
 import { clerkMiddleware } from "@clerk/express";
-import userRouter from "./routes/useRoutes.js";
+import userRouter from "./routes/userRoutes.js";
 const app = express();
 await connectDB();
 app.use(express.json());
