@@ -1,5 +1,5 @@
-import imagekit from "../configs/imageKit";
-import User from "../models/User";
+import imagekit from "../configs/imageKit.js";
+import User from "../models/User.js";
 import fs from "fs";
 // Get user data
 export const getUserData = async (req, res) => {
@@ -15,19 +15,19 @@ export const getUserData = async (req, res) => {
     res.json({ success: false, message: e.message });
   }
 };
+
 // Update user data
 export const updateUserData = async (req, res) => {
   try {
     const { userId } = req.auth();
-    const { username, bio, location, full_name } = req.body;
+    let { username, bio, location, full_name } = req.body;
     const tempUser = await User.findById(userId);
     !username && (username = tempUser.username);
-    if (tempUser.username !== username) {
-      const user = User.findOne({ username });
-      if (user) {
-        // We will not change the username if it is already taken
-        username = tempUser.username;
-      }
+    const existing = await User.findOne({ username });
+    if (existing) {
+      return res
+        .status(409)
+        .json({ success: false, message: "Username is already taken" });
     }
     const updatedData = {
       username,
@@ -72,7 +72,7 @@ export const updateUserData = async (req, res) => {
     const user = await User.findByIdAndUpdate(userId, updatedData, {
       new: true,
     });
-    res.json({ success: true, message: "Profile updated successfully" });
+    res.json({ success: true, user, message: "Profile updated successfully" });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: e.message });
@@ -147,3 +147,10 @@ export const unfollowUser = async (req, res) => {
   }
 };
 // 6.59
+
+const property = {
+  username: "savagenur",
+  bio: "Im super",
+  location: "KG",
+  full_name: "Nurba Muratbek",
+};
